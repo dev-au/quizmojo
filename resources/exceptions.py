@@ -56,7 +56,7 @@ class UsernameOrPasswordIncorrectException(APIException, status_code=status.HTTP
     """
 
 
-class OldPasswordIncorrectException(APIException, status_code=status.HTTP_401_UNAUTHORIZED):
+class OldPasswordIncorrectException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     The old password provided for a password update operation is incorrect.
     """
