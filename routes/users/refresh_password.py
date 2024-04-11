@@ -7,7 +7,7 @@ from urls import user_router
 
 
 @user_router.post('/refresh-password', response_model=APIResponse.example_model(UserModel))
-async def login_user(user: CurrentUser, user_password_data: UserRefreshPasswordModel):
+async def refresh_user_password(user: CurrentUser, user_password_data: UserRefreshPasswordModel):
     if user_password_data.new_password != user_password_data.new_password_confirm:
         raise PasswordConfirmException()
     authenticated_user = await authenticate_user(user.username, user_password_data.old_password)

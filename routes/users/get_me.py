@@ -4,6 +4,6 @@ from resources.depends import CurrentUser
 from urls import user_router
 
 
-@user_router.post('/getme', response_model=APIResponse.example_model(UserModel))
-async def login_user(user: CurrentUser):
+@user_router.get('/getme', response_model=APIResponse.example_model(UserModel))
+async def get_user_information(user: CurrentUser):
     return APIResponse(UserModel(username=user.username, fullname=user.fullname))

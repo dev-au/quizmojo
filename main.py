@@ -7,7 +7,10 @@ from urls import ROUTERS
 from resources.exceptions import ERRORS
 import routes
 
-app = FastAPI(title='Iqtidor IT Quiz', swagger_ui_parameters={"defaultModelsExpandDepth": -1})
+app = FastAPI(debug=True, title='Iqtidor IT Quiz', description='This project built for Iqtidor IT Academy.',
+              version='0.1.0',
+              contact={'name': 'dev-au', 'url': 'https://t.me/pycyberuz', 'email': 'devau.business@gmail.com'},
+              swagger_ui_parameters={"defaultModelsExpandDepth": -1})
 for router in ROUTERS:
     app.include_router(router)
 
@@ -24,7 +27,7 @@ async def start_project():
     )
 
 
-@app.get('/errors')
+@app.get('/errors', include_in_schema=False)
 async def project_error_types(request: Request):
     return template.TemplateResponse(request, 'errors.html', {'errors': ERRORS})
 
