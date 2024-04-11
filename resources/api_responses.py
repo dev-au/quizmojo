@@ -7,13 +7,15 @@ from pydantic import BaseModel
 
 class APIResponse(JSONResponse):
 
-    def __init__(self, model: BaseModel, status_code: int = 200):
+    def __init__(self, model: BaseModel, **kwargs):
         detail = {
-            'status_code': status_code,
+            'status_code': 200,
             'error': None
         }
         response_content = {'detail': detail, 'data': model.dict()}
-        super().__init__(status_code=status_code, content=response_content)
+        if kwargs:
+            response_content['data'].update(kwargs)
+        super().__init__(status_code=200, content=response_content)
 
     @staticmethod
     def example_model(model: BaseModel):

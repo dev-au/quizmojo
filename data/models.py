@@ -3,7 +3,7 @@ from tortoise import Model as DbModel, fields
 
 class User(DbModel):
     username = fields.CharField(pk=True, max_length=16)
-    fullname = fields.CharField(32)
+    fullname = fields.CharField(max_length=32)
     hashed_password = fields.TextField()
 
 

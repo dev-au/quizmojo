@@ -38,7 +38,19 @@ class UserAlreadyExistsException(APIException, status_code=status.HTTP_400_BAD_R
     """
 
 
-class PasswordConfirmException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+class UsernameValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User username must be between 5 and 20 characters. And it can only contain alphanumeric characters and underscores.
+    """
+
+
+class FullnameValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User fullname must be 32 characters at most.
+    """
+
+
+class PasswordConfirmationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     The provided password confirmation does not match the original password.
     """
@@ -46,7 +58,7 @@ class PasswordConfirmException(APIException, status_code=status.HTTP_400_BAD_REQ
 
 class PasswordValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
-    The provided password does not meet the required criteria.
+    User password must be 8 characters at least. And it must contain numbers and letters.
     """
 
 
