@@ -64,5 +64,5 @@ class OldPasswordIncorrectException(APIException, status_code=status.HTTP_401_UN
 
 class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
-    When a user changes their password, the new password is the same as the old one
+    When a user change own password, the new password is the same as the old one.
     """
