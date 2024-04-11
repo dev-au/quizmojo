@@ -7,7 +7,9 @@ from urls import ROUTERS
 from resources.exceptions import ERRORS
 import routes
 
-app = FastAPI(debug=True, title='Iqtidor IT Quiz', description='This project built for Iqtidor IT Academy.',
+app = FastAPI(debug=True,
+              title='Iqtidor IT Quiz',
+              description='This project built for Iqtidor IT Academy.',
               version='0.1.0',
               contact={'name': 'dev-au', 'url': 'https://t.me/pycyberuz', 'email': 'devau.business@gmail.com'},
               swagger_ui_parameters={"defaultModelsExpandDepth": -1})

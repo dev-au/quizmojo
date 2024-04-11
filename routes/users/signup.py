@@ -1,10 +1,10 @@
 from fastapi import Request
 from data.models import User
 from resources.auth import verify_captcha, get_password_hash, validate_password
-from urls import user_router
 from data.schemas import UserModel, SignupModel
 from resources.exceptions import *
 from resources.api_responses import APIResponse
+from urls import user_router
 
 
 @user_router.post('/signup', response_model=APIResponse.example_model(UserModel))

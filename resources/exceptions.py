@@ -9,7 +9,7 @@ class APIException(HTTPException):
     def __init_subclass__(cls):
         variables = cls.__dict__
         cls.status_code = variables.get('status_code')
-        ERRORS[cls.__name__] = {'description': cls.__doc__, 'status_code': cls.status_code}
+        ERRORS[cls.__name__] = {'description': cls.__doc__.strip(), 'status_code': cls.status_code}
 
     def __init__(self):
         super().__init__(self.status_code, {'status_code': self.status_code, 'error': self.__class__.__name__})
