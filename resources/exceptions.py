@@ -60,3 +60,9 @@ class OldPasswordIncorrectException(APIException, status_code=status.HTTP_401_UN
     """
     The old password provided for a password update operation is incorrect.
     """
+
+
+class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    When a user changes their password, the new password is the same as the old one
+    """
