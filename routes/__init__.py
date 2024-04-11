@@ -1,1 +1,1 @@
-from . import users, captcha
+from . import users
