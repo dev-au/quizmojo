@@ -7,7 +7,7 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from data.schemas import *
 from data.models import User
-from resources.api_responses import *
+from resources.exceptions import CaptchaExpiredException, CaptchaVerifyException
 
 SECRET_KEY = "1aa7c3c8c5563fb00439b132eb711fe26a36e74b267aa030bbd347fbf2695825"
 ALGORITHM = "HS256"
@@ -21,9 +21,9 @@ async def verify_captcha(redis: Redis, captcha_key: str, captcha_answer: str):
     real_answer = await redis.get(captcha_key)
     await redis.delete(captcha_key)
     if not real_answer:
-        raise CaptchaExpiredError()
+        raise CaptchaExpiredException()
     elif int(real_answer) != captcha_answer:
-        raise CaptchaVerifyError()
+        raise CaptchaVerifyException()
 
 
 def validate_password(password: str):

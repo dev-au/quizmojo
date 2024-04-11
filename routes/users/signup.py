@@ -1,22 +1,22 @@
-from fastapi import Request, HTTPException, status
-from fastapi.responses import JSONResponse
+from fastapi import Request
 from data.models import User
 from resources.auth import verify_captcha, get_password_hash, validate_password
 from urls import user_router
 from data.schemas import UserModel, SignupModel
-from resources.api_responses import *
+from resources.exceptions import *
+from resources.api_responses import APIResponse
 
 
 @user_router.post('/signup', response_model=APIResponse.example_model(UserModel))
 async def signup_user(request: Request, user_data: SignupModel):
     await verify_captcha(request.app.redis, user_data.captcha_key, user_data.captcha_answer)
     if user_data.password != user_data.password_confirm:
-        raise PasswordConfirmError()
+        raise PasswordConfirmException()
     if not validate_password(user_data.password):
-        raise PasswordValidationError()
+        raise PasswordValidationException()
     user_exists = await User.exists(username=user_data.username)
     if user_exists:
-        raise UserAlreadyExistsError()
+        raise UserAlreadyExistsException()
 
     await User.create(
         username=user_data.username,
@@ -24,4 +24,5 @@ async def signup_user(request: Request, user_data: SignupModel):
         hashed_password=get_password_hash(user_data.password)
     )
 
-    return APIResponse(UserModel(username=user_data.username), status_code=status.HTTP_201_CREATED)
+    return APIResponse(UserModel(username=user_data.username, fullname=user_data.fullname),
+                       status_code=status.HTTP_201_CREATED)

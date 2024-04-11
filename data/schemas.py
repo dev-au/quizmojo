@@ -5,9 +5,11 @@ from pydantic import BaseModel
 
 class UserModel(BaseModel):
     username: str
+    fullname: str
 
 
-class SignupModel(UserModel):
+class SignupModel(BaseModel):
+    username: str
     fullname: str
     password: str
     password_confirm: str
@@ -15,8 +17,17 @@ class SignupModel(UserModel):
     captcha_answer: int
 
 
-class LoginModel(UserModel):
+class LoginModel(BaseModel):
+    username: str
     password: str
+    captcha_key: str
+    captcha_answer: int
+
+
+class UserRefreshPasswordModel(BaseModel):
+    old_password: str
+    new_password: str
+    new_password_confirm: str
     captcha_key: str
     captcha_answer: int
 
