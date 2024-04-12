@@ -30,16 +30,16 @@ class UserRefreshPasswordModel(BaseModel):
     captcha_answer: int
 
 
+class UserRefreshFullnameModel(BaseModel):
+    new_fullname: str
+    password: str
+
+
 class TokenModel(BaseModel):
     access_token: str = None
     refresh_token: str = None
 
 
-class CaptchaData(BaseModel):
+class CaptchaModel(BaseModel):
     key: str
     img: str
-
-
-class QuizData(BaseModel):
-    id: int
-    name: str

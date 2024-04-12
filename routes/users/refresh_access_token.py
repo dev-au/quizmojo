@@ -2,9 +2,9 @@ from fastapi import Depends
 
 from data.models import User
 from data.schemas import TokenModel
-from resources.api_responses import APIResponse
+from resources.api_response import APIResponse
+from resources.authentication import create_access_token
 from resources.depends import user_refresh_login
-from resources.auth import create_access_token
 from urls import user_router
 
 

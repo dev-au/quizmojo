@@ -1,14 +1,14 @@
 from fastapi import Request
 
+from data.exceptions import *
 from data.schemas import UserRefreshPasswordModel, UserModel
-from resources.api_responses import APIResponse
-from resources.exceptions import *
+from resources.api_response import APIResponse
+from resources.authentication import authenticate_user, get_password_hash, verify_captcha, validate_password
 from resources.depends import CurrentUser
-from resources.auth import authenticate_user, get_password_hash, verify_captcha, validate_password
 from urls import user_router
 
 
-@user_router.post('/refresh-password', response_model=APIResponse.example_model(UserModel))
+@user_router.patch('/change-password', response_model=APIResponse.example_model(UserModel))
 async def refresh_user_password(request: Request, user: CurrentUser, user_password_data: UserRefreshPasswordModel):
     await verify_captcha(request.app.redis, user_password_data.captcha_key, user_password_data.captcha_answer)
     if user_password_data.new_password != user_password_data.new_password_confirm:

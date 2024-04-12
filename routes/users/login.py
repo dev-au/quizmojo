@@ -1,8 +1,9 @@
 from fastapi import Request
+
+from data.exceptions import UsernameOrPasswordIncorrectException
 from data.schemas import LoginModel, TokenModel
-from resources.api_responses import APIResponse
-from resources.exceptions import UsernameOrPasswordIncorrectException
-from resources.auth import authenticate_user, verify_captcha, create_access_token, create_refresh_token
+from resources.api_response import APIResponse
+from resources.authentication import authenticate_user, verify_captcha, create_access_token, create_refresh_token
 from urls import user_router
 
 

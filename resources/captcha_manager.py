@@ -6,9 +6,9 @@ from aioredis import Redis
 
 
 async def generate_captcha(redis: Redis):
-    random_number = random.randint(10000, 99999)
+    random_number = str(random.randint(10000, 99999))
     image = ImageCaptcha(height=100)
-    captcha_data = image.generate(str(random_number))
+    captcha_data = image.generate(random_number)
     captcha_bytes = captcha_data.getvalue()
     captcha_base64 = base64.b64encode(captcha_bytes).decode('utf-8')
     captcha_key = str(uuid.uuid4())

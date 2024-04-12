@@ -6,7 +6,7 @@ import secrets
 
 from passlib.context import CryptContext
 
-from resources.auth import SECRET_KEY, ALGORITHM
+from resources.authentication import SECRET_KEY, ALGORITHM
 
 pwd_context_form = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

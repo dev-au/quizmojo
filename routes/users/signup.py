@@ -1,8 +1,8 @@
 from fastapi import Request
-from resources.auth import create_user, verify_captcha
+
 from data.schemas import UserModel, SignupModel
-from resources.exceptions import *
-from resources.api_responses import APIResponse
+from resources.api_response import APIResponse
+from resources.authentication import create_user, verify_captcha
 from urls import user_router
 
 

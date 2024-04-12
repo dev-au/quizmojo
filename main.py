@@ -4,7 +4,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from aioredis import from_url
 from setup import *
 from urls import ROUTERS
-from resources.exceptions import ERRORS
+from data.exceptions import ERRORS
 import routes
 
 app = FastAPI(debug=True,

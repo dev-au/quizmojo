@@ -70,11 +70,36 @@ class UsernameOrPasswordIncorrectException(APIException, status_code=status.HTTP
 
 class OldPasswordIncorrectException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
-    The old password provided for a password update operation is incorrect.
+    The old password provided for a password or fullname update operation is incorrect.
     """
 
 
 class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     When a user change own password, the new password is the same as the old one.
+    """
+
+
+class QuizNameValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz name must be 64 characters at most.
+    """
+
+
+class QuizWorkingTimeValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz the working time must be 30 seconds at least and 24 hours at most.
+    """
+
+
+class QuizStartingTimeValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz the start time must be a time after the current time.
+    """
+
+
+class QuizEndingTimeValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz the ending time must be a time after the starting time and also min difference must be at least the
+    working time.
     """
