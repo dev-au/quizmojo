@@ -7,8 +7,7 @@ from urls import ROUTERS
 from data.exceptions import ERRORS
 import routes
 
-app = FastAPI(debug=True,
-              title='Iqtidor IT Quiz',
+app = FastAPI(title='Iqtidor IT Quiz',
               description='This project built for Iqtidor IT Academy.',
               version='0.1.0',
               contact={'name': 'dev-au', 'url': 'https://t.me/pycyberuz', 'email': 'devau.business@gmail.com'},

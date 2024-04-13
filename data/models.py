@@ -14,13 +14,14 @@ class Quiz(DbModel):
     working_time = fields.TimeField()
     is_private = fields.BooleanField()
     is_forever = fields.BooleanField()
+    is_active = fields.BooleanField()
     starting_time = fields.DatetimeField(null=True)
     ending_time = fields.DatetimeField(null=True)
 
 
-class QuizOption(DbModel):
+class Question(DbModel):
     id = fields.IntField(pk=True)
-    question = fields.TextField()
+    text = fields.TextField()
     answer1 = fields.TextField()
     answer2 = fields.TextField()
     answer3 = fields.TextField()

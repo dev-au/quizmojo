@@ -8,7 +8,7 @@ from resources.depends import CurrentUser
 from urls import user_router
 
 
-@user_router.patch('/change-password', response_model=APIResponse.example_model(UserModel))
+@user_router.patch('/change-password', response_model=APIResponse.example_model())
 async def refresh_user_password(request: Request, user: CurrentUser, user_password_data: UserRefreshPasswordModel):
     await verify_captcha(request.app.redis, user_password_data.captcha_key, user_password_data.captcha_answer)
     if user_password_data.new_password != user_password_data.new_password_confirm:
@@ -22,4 +22,4 @@ async def refresh_user_password(request: Request, user: CurrentUser, user_passwo
         raise OldAndNewPasswordAreTheSameException()
     user.hashed_password = get_password_hash(user_password_data.new_password)
     await user.save()
-    return APIResponse(UserModel(username=user.username, fullname=user.fullname))
+    return APIResponse()

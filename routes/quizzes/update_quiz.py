@@ -9,8 +9,11 @@ from setup import timezone
 from urls import quiz_router
 
 
-@quiz_router.put('', response_model=APIResponse.example_model())
-async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
+@quiz_router.patch('/{quiz_id}', response_model=APIResponse.example_model())
+async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCreateModel):
+    quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
+    if not quiz:
+        raise QuizNotFoundException()
     if len(quiz_data.name) > 64:
         raise QuizNameValidationException()
     min_length = timedelta(seconds=30)
@@ -31,5 +34,6 @@ async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
     else:
         quiz_data.starting_time = None
         quiz_data.ending_time = None
-    await Quiz.create(owner=user, **quiz_data.dict())
+    await quiz.update_from_dict(quiz_data.dict())
+    await quiz.save()
     return APIResponse()

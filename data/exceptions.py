@@ -62,7 +62,7 @@ class PasswordValidationException(APIException, status_code=status.HTTP_400_BAD_
     """
 
 
-class UsernameOrPasswordIncorrectException(APIException, status_code=status.HTTP_401_UNAUTHORIZED):
+class UsernameOrPasswordIncorrectException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     The username or password provided during authentication is incorrect.
     """
@@ -102,4 +102,10 @@ class QuizEndingTimeValidationException(APIException, status_code=status.HTTP_40
     """
     Quiz the ending time must be a time after the starting time and also min difference must be at least the
     working time.
+    """
+
+
+class QuizNotFoundException(APIException, status_code=status.HTTP_404_NOT_FOUND):
+    """
+    Requiring quiz not found.
     """
