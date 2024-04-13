@@ -109,3 +109,15 @@ class QuizNotFoundException(APIException, status_code=status.HTTP_404_NOT_FOUND)
     """
     Requiring quiz not found.
     """
+
+
+class QuestionCorrectAnswerValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Question correct answer must be only 1, 2, 3, 4.
+    """
+
+
+class QuestionNotFoundException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Requiring question not found.
+    """
