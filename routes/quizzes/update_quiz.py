@@ -14,7 +14,7 @@ async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCre
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:
         raise QuizNotFoundException()
-    if len(quiz_data.name) > 64:
+    if 5 < len(quiz_data.name) > 64:
         raise QuizNameValidationException()
     min_length = timedelta(seconds=30)
     max_length = timedelta(hours=24)

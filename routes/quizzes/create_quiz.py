@@ -11,7 +11,7 @@ from urls import quiz_router
 
 @quiz_router.put('', response_model=APIResponse.example_model())
 async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
-    if len(quiz_data.name) > 64:
+    if 5 < len(quiz_data.name) > 64:
         raise QuizNameValidationException()
     min_length = timedelta(seconds=30)
     max_length = timedelta(hours=24)

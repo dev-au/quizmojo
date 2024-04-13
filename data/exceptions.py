@@ -82,7 +82,7 @@ class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP
 
 class QuizNameValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
-    Quiz name must be 64 characters at most.
+    Quiz name must be 64 characters at most and 5 characters at least.
     """
 
 
