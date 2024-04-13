@@ -9,7 +9,7 @@ from setup import timezone
 from urls import quiz_router
 
 
-@quiz_router.patch('/{quiz_id}', response_model=APIResponse.example_model())
+@quiz_router.put('/{quiz_id}', response_model=APIResponse.example_model())
 async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCreateModel):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:

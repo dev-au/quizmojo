@@ -30,7 +30,7 @@
         }
 
         .error-doc {
-            width: 45%; /* Each error doc takes 45% of the container width */
+            width: 90%; /* Each error doc takes 45% of the container width */
             background-color: #f9f9f9;
             border-radius: 5px;
             padding: 15px;
@@ -87,9 +87,6 @@
             </div>
             <div class="status-code status-code-{{ error_data['status_code'] }}">{{ error_data['status_code'] }}</div>
         </div>
-        {% if loop.index is divisibleby 2 %}
-            <div style="clear: both;"></div> <!-- Clear floating elements every two error docs -->
-        {% endif %}
     {% endfor %}
 </div>
 </body>

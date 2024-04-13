@@ -9,7 +9,7 @@ from setup import timezone
 from urls import quiz_router
 
 
-@quiz_router.put('', response_model=APIResponse.example_model())
+@quiz_router.post('', response_model=APIResponse.example_model())
 async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
     if 5 < len(quiz_data.name) > 64:
         raise QuizNameValidationException()
