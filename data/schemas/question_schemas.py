@@ -40,3 +40,12 @@ class QuestionsGetModel(BaseModel):
     answer3: str
     answer4: str
     correct_answer: int
+
+
+class QuestionWorkModel(BaseModel):
+    id: int
+    text: str
+    answer1: str
+    answer2: str
+    answer3: str
+    answer4: str

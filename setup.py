@@ -1,7 +1,7 @@
 import pytz
 from fastapi.templating import Jinja2Templates
 
-timezone = pytz.timezone('Asia/Tashkent')
+current_timezone = pytz.timezone('Asia/Tashkent')
 
 DB_URL = 'sqlite://db.sqlite3'
 REDIS_URL = 'redis://localhost:6379/1'

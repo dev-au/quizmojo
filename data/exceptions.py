@@ -111,6 +111,36 @@ class QuizNotFoundException(APIException, status_code=status.HTTP_404_NOT_FOUND)
     """
 
 
+class QuizExpiredException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz activating time has expired.
+    """
+
+
+class QuizAccessException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User do not have access for working that quiz.
+    """
+
+
+class QuizAlreadyWorkedException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User try to work quiz that already worked.
+    """
+
+
+class QuizJoinRequestIsCheckingException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User already sent join request and quiz creator still not accepted.
+    """
+
+
+class QuizIsNowWorkingException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Quiz has already started working or trying to start quiz from another session or user quit quiz during working.
+    """
+
+
 class QuestionCorrectAnswerValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     Question correct answer must be only 1, 2, 3, 4.

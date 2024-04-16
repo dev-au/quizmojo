@@ -5,7 +5,7 @@ from data.models import Quiz
 from data.schemas import QuizCreateModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
-from setup import timezone
+from setup import current_timezone
 from urls import quiz_router
 
 
@@ -20,9 +20,9 @@ async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
     if working_time < min_length or working_time > max_length:
         raise QuizWorkingTimeValidationException()
     if not quiz_data.is_forever:
-        current_time = datetime.now(timezone)
-        quiz_data.starting_time = quiz_data.starting_time.astimezone(timezone)
-        quiz_data.ending_time = quiz_data.ending_time.astimezone(timezone)
+        current_time = datetime.now(current_timezone)
+        quiz_data.starting_time = quiz_data.starting_time.astimezone(current_time)
+        quiz_data.ending_time = quiz_data.ending_time.astimezone(current_timezone)
         if quiz_data.starting_time < current_time:
             raise QuizStartingTimeValidationException()
         if quiz_data.ending_time - quiz_data.starting_time < working_time:

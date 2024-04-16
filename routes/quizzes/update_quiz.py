@@ -5,11 +5,11 @@ from data.models import Quiz
 from data.schemas import QuizCreateModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
-from setup import timezone
+from setup import current_timezone
 from urls import quiz_router
 
 
-@quiz_router.put('/{quiz_id}', response_model=APIResponse.example_model())
+@quiz_router.put('', response_model=APIResponse.example_model())
 async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCreateModel):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:
@@ -23,9 +23,9 @@ async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCre
     if working_time < min_length or working_time > max_length:
         raise QuizWorkingTimeValidationException()
     if not quiz_data.is_forever:
-        current_time = datetime.now(timezone)
-        quiz_data.starting_time = quiz_data.starting_time.astimezone(timezone)
-        quiz_data.ending_time = quiz_data.ending_time.astimezone(timezone)
+        current_time = datetime.now(current_timezone)
+        quiz_data.starting_time = quiz_data.starting_time.astimezone(current_time)
+        quiz_data.ending_time = quiz_data.ending_time.astimezone(current_timezone)
         if quiz_data.starting_time < current_time:
             raise QuizStartingTimeValidationException()
         if quiz_data.ending_time - quiz_data.starting_time < working_time:

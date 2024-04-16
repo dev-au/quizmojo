@@ -7,9 +7,12 @@ from urls import quiz_router
 
 
 @quiz_router.get('', response_model=APIResponse.example_model(list[QuizInfoModel]))
-async def get_all_quizzes(user: CurrentUser):
-    all_quizzes = await Quiz.filter(owner=user)
+async def get_all_quizzes(user: CurrentUser, page: int):
     response = []
+    items_per_page = 10
+    offset = (page - 1) * items_per_page
+    all_quizzes = await Quiz.filter(owner=user).offset(offset).limit(items_per_page)
+
     for quiz in all_quizzes:
         if not quiz.is_forever:
             quiz.starting_time = str(quiz.starting_time)
@@ -27,7 +30,7 @@ async def get_all_quizzes(user: CurrentUser):
     return APIResponse(response)
 
 
-@quiz_router.get('/{quiz_id}', response_model=APIResponse.example_model(QuizInfoModel))
+@quiz_router.get('/{qui_id}', response_model=APIResponse.example_model(QuizInfoModel))
 async def get_one_quiz(user: CurrentUser, quiz_id: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:
