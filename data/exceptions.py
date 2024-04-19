@@ -92,7 +92,7 @@ class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP
     """
 
 
-class TooManyRequests(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+class TooManyRequests(APIException, status_code=status.HTTP_429_TOO_MANY_REQUESTS):
     """
     This phone number must be wait 1day.
     """
