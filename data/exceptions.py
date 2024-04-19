@@ -32,9 +32,15 @@ class CaptchaExpiredException(APIException, status_code=status.HTTP_400_BAD_REQU
     """
 
 
-class UserAlreadyExistsException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+class UsernameAlreadyExistsException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
-    Attempting to create a user that already exists.
+    Attempting to create a username that already exists.
+    """
+
+
+class PhoneAlreadyExistsException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    Attempting to create a phone that already exists.
     """
 
 
@@ -47,6 +53,12 @@ class UsernameValidationException(APIException, status_code=status.HTTP_400_BAD_
 class FullnameValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     User fullname must be 32 characters at most.
+    """
+
+
+class PhoneValidationException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User phone number must be 9 digits.
     """
 
 

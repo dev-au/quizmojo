@@ -1,5 +1,3 @@
-import uuid
-
 from data.exceptions import *
 from data.models import Quiz, Question
 from data.schemas import AllQuestionsCreateModel

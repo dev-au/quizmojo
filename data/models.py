@@ -7,6 +7,7 @@ from setup import current_timezone
 
 class User(Model):
     username = fields.CharField(pk=True, max_length=16)
+    phone = fields.IntField()
     fullname = fields.CharField(max_length=32)
     hashed_password = fields.TextField()
 

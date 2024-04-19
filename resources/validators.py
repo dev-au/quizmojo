@@ -1,6 +1,8 @@
 import re
+
 from aioredis import Redis
 from passlib.context import CryptContext
+
 from data.exceptions import *
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -20,6 +22,11 @@ def validate_password(password: str):
             or not re.search(r"[a-zA-Z]", password)
             or not re.search(r"\d", password)):
         raise PasswordValidationException()
+
+
+def validate_phone(phone: int):
+    if len(str(phone)) != 9:
+        raise PhoneValidationException()
 
 
 def verify_password(plain_password: str, hashed_password: str):

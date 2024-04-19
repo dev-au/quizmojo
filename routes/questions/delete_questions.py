@@ -1,5 +1,5 @@
 from data.exceptions import *
-from data.models import Quiz, Question
+from data.models import Question
 from data.schemas import AllQuestionsDeleteModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser

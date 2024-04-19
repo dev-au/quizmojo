@@ -1,8 +1,9 @@
 import base64
+import random
+import uuid
 
-from captcha.image import ImageCaptcha
-import random, uuid
 from aioredis import Redis
+from captcha.image import ImageCaptcha
 
 
 async def generate_captcha(redis: Redis):

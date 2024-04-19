@@ -2,10 +2,10 @@ from typing import Annotated
 
 from fastapi import Depends
 from jose import jwt, JWTError
-from data.exceptions import *
 
-from resources.authentication import SECRET_KEY, ALGORITHM
+from data.exceptions import *
 from data.models import User
+from resources.authentication import SECRET_KEY, ALGORITHM
 from urls import oauth2_scheme
 
 

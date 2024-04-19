@@ -1,10 +1,11 @@
+from aioredis import from_url
 from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
-from aioredis import from_url
+
+from data.exceptions import ERRORS
 from setup import *
 from urls import ROUTERS
-from data.exceptions import ERRORS
 import routes
 
 app = FastAPI(title='Iqtidor IT Quiz',

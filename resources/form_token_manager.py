@@ -1,9 +1,8 @@
-from jose import jwt
+import random
+import string
 from datetime import datetime, timedelta, timezone
 
-import random, string
-import secrets
-
+from jose import jwt
 from passlib.context import CryptContext
 
 from resources.authentication import SECRET_KEY, ALGORITHM

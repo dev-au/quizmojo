@@ -1,7 +1,9 @@
 from datetime import datetime, time
 
 from pydantic import BaseModel
+
 from .question_schemas import QuestionWorkModel
+
 
 class QuizGetModel(BaseModel):
     id: int

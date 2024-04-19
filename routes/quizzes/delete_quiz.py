@@ -1,6 +1,5 @@
 from data.exceptions import *
 from data.models import Quiz
-from data.schemas import QuizGetModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
 from urls import quiz_router
