@@ -29,7 +29,7 @@ async def get_all_quizzes(user: CurrentUser, page: int):
     return APIResponse(response)
 
 
-@quiz_router.get('/{qui_id}', response_model=APIResponse.example_model(QuizInfoModel))
+@quiz_router.get('/{quiz_id}', response_model=APIResponse.example_model(QuizInfoModel))
 async def get_one_quiz(user: CurrentUser, quiz_id: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:

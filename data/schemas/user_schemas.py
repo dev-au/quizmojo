@@ -48,3 +48,8 @@ class TokenModel(BaseModel):
 class CaptchaModel(BaseModel):
     key: str
     img: str
+
+
+class AcceptUserModel(BaseModel):
+    username: str
+    quiz_id: int
