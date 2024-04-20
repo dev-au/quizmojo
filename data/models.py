@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, time
 
 from tortoise import Model, fields
 
+from data.exceptions import QuizNotFoundException
 from setup import current_timezone
 
 
@@ -31,7 +32,7 @@ class Quiz(Model):
             elif self.starting_time + timedelta(
                     hours=self.working_time.hour,
                     minutes=self.working_time.minute,
-                    seconds=self.working_time.second + 10
+                    seconds=self.working_time.second,
             ) < self.ending_time:
                 return True
         return False
@@ -58,8 +59,23 @@ class ResultQuiz(Model):
     class Meta:
         unique_together = (("user", "quiz"),)
 
+    @staticmethod
+    async def finish_latecomers(quiz_id: int):
+        quiz = await Quiz.get_or_none(id=quiz_id)
+        if not quiz:
+            raise QuizNotFoundException()
+        results = await ResultQuiz.filter(quiz=quiz)
+        for result in results:
+            if result.corrects == -1:
+                max_time_limit = result.started_time + timedelta(hours=quiz.working_time.hour,
+                                                                 minutes=quiz.working_time.minute,
+                                                                 seconds=quiz.working_time.second)
+                if max_time_limit >= datetime.now(current_timezone):
+                    result.corrects = 0
+                    result.ended_time = max_time_limit
+                    await result.save()
 
-class JoiningRequest(Model):
+
+class UserAcceptQuiz(Model):
     user = fields.ForeignKeyField('models.User')
     quiz = fields.ForeignKeyField('models.Quiz')
-    is_accepted = fields.BooleanField(default=False)

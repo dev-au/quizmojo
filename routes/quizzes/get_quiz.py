@@ -9,9 +9,8 @@ from urls import quiz_router
 @quiz_router.get('', response_model=APIResponse.example_model(list[QuizInfoModel]))
 async def get_all_quizzes(user: CurrentUser, page: int):
     response = []
-    items_per_page = 10
-    offset = (page - 1) * items_per_page
-    all_quizzes = await Quiz.filter(owner=user).offset(offset).limit(items_per_page)
+    offset = (page - 1) * 10
+    all_quizzes = await Quiz.filter(owner=user).offset(offset).limit(10)
 
     for quiz in all_quizzes:
         if not quiz.is_forever:

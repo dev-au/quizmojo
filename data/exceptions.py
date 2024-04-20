@@ -92,6 +92,11 @@ class OldAndNewPasswordAreTheSameException(APIException, status_code=status.HTTP
     """
 
 
+class UserNotFoundException(APIException, status_code=status.HTTP_404_NOT_FOUND):
+    """
+    The user does not exist.
+    """
+
 class TooManyRequestsException(APIException, status_code=status.HTTP_429_TOO_MANY_REQUESTS):
     """
     This phone number must be wait 1day.
@@ -168,4 +173,10 @@ class QuestionCorrectAnswerValidationException(APIException, status_code=status.
 class QuestionNotFoundException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     Requiring question not found.
+    """
+
+
+class UserNotRegisteredException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+    """
+    User not started before sending results.
     """

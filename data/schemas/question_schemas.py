@@ -49,3 +49,12 @@ class QuestionWorkModel(BaseModel):
     answer2: str
     answer3: str
     answer4: str
+
+
+class QuestionAnswerModel(BaseModel):
+    id: int
+    correct_answer: int
+
+
+class QuestionsAnswerModel(BaseModel):
+    answers: list[QuestionAnswerModel]
