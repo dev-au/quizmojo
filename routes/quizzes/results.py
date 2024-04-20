@@ -1,15 +1,17 @@
 import io
+
 import pandas as pd
 from fastapi import Response
 
 from data.exceptions import *
 from data.models import Quiz, ResultQuiz
+from data.schemas import ResultQuizModel, ResultsQuizModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
 from urls import quiz_router
 
 
-@quiz_router.get('/results', response_model=APIResponse.example_model())
+@quiz_router.get('/results', response_model=APIResponse.example_model(ResultsQuizModel))
 async def result_quizzes(user: CurrentUser, quiz_id: int, page: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
     if not quiz:
@@ -21,8 +23,14 @@ async def result_quizzes(user: CurrentUser, quiz_id: int, page: int):
         results = sorted(results, key=lambda x: (-x.corrects, x.ended_time - x.started_time))
     else:
         results = sorted(results, key=lambda x: (-x.corrects, x.ended_time))
+    results_quiz = []
+    sorted_results = results[offset: offset + 10]
+    for result in sorted_results:
+        results_quiz.append(
+            ResultQuizModel(username=getattr(result, 'user_id'), quiz_id=quiz.id, corrects=result.corrects,
+                            started_time=result.started_time, ended_time=result.ended_time))
 
-    return results[offset: offset + 10]
+    return ResultsQuizModel(results=results_quiz)
 
 
 @quiz_router.get('/results-excel', response_class=Response)
