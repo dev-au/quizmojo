@@ -74,12 +74,6 @@ class PasswordValidationException(APIException, status_code=status.HTTP_400_BAD_
     """
 
 
-class UsernameOrPasswordIncorrectException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
-    """
-    The username or password provided during authentication is incorrect.
-    """
-
-
 class OldPasswordIncorrectException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     The old password provided for a password or fullname update operation is incorrect.
