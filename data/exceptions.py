@@ -171,7 +171,7 @@ class QuestionNotFoundException(APIException, status_code=status.HTTP_400_BAD_RE
     """
 
 
-class UserNotRegisteredException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
+class UserNotStartedQuizException(APIException, status_code=status.HTTP_400_BAD_REQUEST):
     """
     User not started before sending results.
     """

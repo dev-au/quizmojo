@@ -57,7 +57,7 @@ async def user_work_quiz(user: CurrentUser, quiz_id: int, answers: QuestionsAnsw
         raise QuizNotFoundException()
     result_quiz = await ResultQuiz.get_or_none(user=user, quiz=quiz)
     if not result_quiz:
-        raise UserNotRegisteredException()
+        raise UserNotStartedQuizException()
     if result_quiz.corrects != -1:
         raise QuizAlreadyWorkedException()
 
