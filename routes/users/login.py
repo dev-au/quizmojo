@@ -3,7 +3,7 @@ from fastapi import Request
 from data.exceptions import UserNotFoundException
 from data.schemas import LoginModel, TokenModel
 from resources.api_response import APIResponse
-from resources.authentication import authenticate_user, verify_captcha, create_access_token, create_refresh_token
+from resources.authentication import authenticate_user, verify_captcha, create_access_token
 from urls import user_router
 
 
@@ -14,8 +14,7 @@ async def login_user(request: Request, user_data: LoginModel):
     if not authenticated_user:
         raise UserNotFoundException()
     access_token = create_access_token(user_data.username)
-    refresh_token = create_refresh_token(user_data.username)
-    return APIResponse(TokenModel(access_token=access_token, refresh_token=refresh_token))
+    return APIResponse(TokenModel(access_token=access_token))
 
 
 
