@@ -37,16 +37,9 @@ async def authenticate_user(username: str, password: str):
 
 
 def create_access_token(username: str):
-    to_encode = {'sub': username, 'type': 'access_token'}
-    expire = datetime.now(current_timezone) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode = {'sub': username}
+    expire = datetime.now(current_timezone) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-
-def create_refresh_token(username: str):
-    to_encode = {'sub': username, 'type': 'refresh_token'}
-    expire = datetime.now(current_timezone) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
