@@ -8,8 +8,8 @@ from setup import *
 from urls import ROUTERS
 import routes
 
-app = FastAPI(title='Iqtidor IT Quiz',
-              description='This project built for Iqtidor IT Academy.',
+app = FastAPI(title='QuizMojo',
+              description='QuizMojo API',
               version='0.1.0',
               contact={'name': 'dev-au', 'url': 'https://t.me/pycyberuz', 'email': 'devau.business@gmail.com'},
               swagger_ui_parameters={"defaultModelsExpandDepth": -1})
