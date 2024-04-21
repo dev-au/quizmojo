@@ -97,6 +97,7 @@ class UserNotFoundException(APIException, status_code=status.HTTP_404_NOT_FOUND)
     The user does not exist.
     """
 
+
 class TooManyRequestsException(APIException, status_code=status.HTTP_429_TOO_MANY_REQUESTS):
     """
     This phone number must be wait 1day.
