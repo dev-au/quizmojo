@@ -10,6 +10,8 @@ async def change_user_phone(user: CurrentUser, user_data: UserRefreshPhoneModel)
     if not verify_password(user_data.password, user.hashed_password):
         raise OldPasswordIncorrectException()
     validate_phone(user_data.new_phone)
+    if await User.exists(phone=user_data.new_phone):
+        raise PhoneAlreadyExistsException()
     user.phone = user_data.new_phone
     await user.save()
     return APIResponse()

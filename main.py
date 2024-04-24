@@ -31,7 +31,7 @@ async def start_project():
 
 
 @app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
+async def add_rate_limiter(request: Request, call_next):
     key = f"rate_limit:{request.client.host}:{request.url.path}"
     redis = request.app.redis
     current_count = await redis.incr(key, 1)
