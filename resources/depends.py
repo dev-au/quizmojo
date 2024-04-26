@@ -9,7 +9,7 @@ from resources.authentication import SECRET_KEY, ALGORITHM
 from urls import oauth2_scheme
 
 
-async def get_current_user(access_token: str = Depends(oauth2_scheme)):
+async def get_current_user(access_token: Annotated[str, Depends(oauth2_scheme)]):
     try:
         payload = jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")

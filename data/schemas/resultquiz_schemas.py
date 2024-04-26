@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class ResultQuizModel(BaseModel):
+    rank: int
     username: str
-    quiz_id: int
     corrects: int
     started_time: datetime
     ended_time: datetime

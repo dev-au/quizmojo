@@ -42,6 +42,7 @@ class UserRefreshPhoneModel(BaseModel):
 
 class TokenModel(BaseModel):
     access_token: str = None
+    token_type: str = 'Bearer'
 
 
 class CaptchaModel(BaseModel):

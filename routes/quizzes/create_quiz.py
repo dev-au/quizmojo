@@ -21,7 +21,7 @@ async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
         raise QuizWorkingTimeValidationException()
     if not quiz_data.is_forever:
         current_time = datetime.now(current_timezone)
-        quiz_data.starting_time = quiz_data.starting_time.astimezone(current_time)
+        quiz_data.starting_time = quiz_data.starting_time.astimezone(current_timezone)
         quiz_data.ending_time = quiz_data.ending_time.astimezone(current_timezone)
         if quiz_data.starting_time < current_time:
             raise QuizStartingTimeValidationException()

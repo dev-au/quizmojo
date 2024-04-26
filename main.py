@@ -31,7 +31,7 @@ async def start_project():
 
 
 @app.middleware("http")
-async def add_rate_limiter(request: Request, call_next):
+async def add_rate_limiter(request: Request, call_next, *args, **kwargs):
     key = f"rate_limit:{request.client.host}:{request.url.path}"
     redis = request.app.redis
     current_count = await redis.incr(key, 1)
@@ -39,7 +39,7 @@ async def add_rate_limiter(request: Request, call_next):
         await redis.expire(key, 60)
     elif current_count > 20:
         return JSONResponse({'detail': {'status_code': 429, 'error': 'TooManyRequestsException'}}, 429)
-    response = await call_next(request)
+    response = await call_next(request, *args, **kwargs)
     return response
 
 

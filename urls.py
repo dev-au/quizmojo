@@ -7,4 +7,4 @@ question_router = APIRouter(prefix='/question', tags=['Question options'])
 
 ROUTERS = (user_router, quiz_router, question_router, )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/user/login-secret")

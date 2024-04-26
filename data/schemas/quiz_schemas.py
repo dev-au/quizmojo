@@ -33,6 +33,6 @@ class QuizInfoModel(BaseModel):
 class QuizWorkModel(BaseModel):
     quiz_id: int
     quiz_name: str
-    working_time: time
+    working_time: str
     questions: list[QuestionWorkModel]
 

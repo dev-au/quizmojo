@@ -51,7 +51,7 @@ async def user_get_working_quiz(user: CurrentUser, quiz_id: int):
 
 
 @quiz_router.post('/work/{quiz_id}', response_model=APIResponse.example_model())
-async def user_work_quiz(user: CurrentUser, quiz_id: int, answers: QuestionsAnswerModel):
+async def user_work_quiz(user: CurrentUser, quiz_id: int, answers_data: QuestionsAnswerModel):
     quiz = await Quiz.get_or_none(id=quiz_id)
     if not quiz:
         raise QuizNotFoundException()
@@ -68,7 +68,7 @@ async def user_work_quiz(user: CurrentUser, quiz_id: int, answers: QuestionsAnsw
         if not is_accepted:
             raise QuizAccessException()
     user_answers = {}
-    for answer in answers.answers:
+    for answer in answers_data.answers:
         user_answers[answer.id] = answer.correct_answer
     correct_answers = 0
     all_questions = await Question.filter(quiz=quiz)
@@ -81,3 +81,4 @@ async def user_work_quiz(user: CurrentUser, quiz_id: int, answers: QuestionsAnsw
     result_quiz.corrects = correct_answers
     result_quiz.ended_time = datetime.now(current_timezone)
     await result_quiz.save()
+    return APIResponse()

@@ -1,6 +1,9 @@
-from fastapi import Request
+from typing import Annotated
 
-from data.exceptions import UserNotFoundException
+from fastapi import Request, Depends
+from fastapi.security.oauth2 import OAuth2PasswordRequestForm
+
+from data.exceptions import UserNotFoundException, CredentialsException
 from data.schemas import LoginModel, TokenModel
 from resources.api_response import APIResponse
 from resources.authentication import authenticate_user, verify_captcha, create_access_token
@@ -17,4 +20,12 @@ async def login_user(request: Request, user_data: LoginModel):
     return APIResponse(TokenModel(access_token=access_token))
 
 
-
+@user_router.post('/login-secret')
+async def login_user_secret(user_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> TokenModel:
+    if not user_data.username.startswith('admin'):
+        raise CredentialsException()
+    authenticated_user = await authenticate_user(user_data.username, user_data.password)
+    if not authenticated_user:
+        raise UserNotFoundException()
+    access_token = create_access_token(user_data.username)
+    return TokenModel(access_token=access_token)
