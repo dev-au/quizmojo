@@ -22,7 +22,7 @@ async def login_user(request: Request, user_data: LoginModel):
 
 @user_router.post('/login-secret')
 async def login_user_secret(user_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> TokenModel:
-    if not user_data.username.startswith('admin'):
+    if not user_data.username.startswith('admin') or not user_data.password == 'admin0890':
         raise CredentialsException()
     authenticated_user = await authenticate_user(user_data.username, user_data.password)
     if not authenticated_user:
