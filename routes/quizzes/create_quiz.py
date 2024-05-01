@@ -6,9 +6,12 @@ from data.schemas import QuizCreateModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
 from setup import current_timezone
+from resources.error_docs import error_docs
 from urls import quiz_router
 
 
+@error_docs(QuizNameValidationException, QuizWorkingTimeValidationException, QuizStartingTimeValidationException,
+            QuizEndingTimeValidationException)
 @quiz_router.post('', response_model=APIResponse.example_model())
 async def create_quiz(user: CurrentUser, quiz_data: QuizCreateModel):
     if 5 < len(quiz_data.name) > 64:

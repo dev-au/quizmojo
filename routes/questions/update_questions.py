@@ -3,9 +3,11 @@ from data.models import Question
 from data.schemas import AllQuestionsUpdateModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
+from resources.error_docs import error_docs
 from urls import question_router
 
 
+@error_docs(QuestionNotFoundException, QuestionCorrectAnswerValidationException)
 @question_router.put('', response_model=APIResponse.example_model())
 async def update_questions(user: CurrentUser, questions_data: AllQuestionsUpdateModel):
     first_question = await Question.get_or_none(id=questions_data.questions[0].id)

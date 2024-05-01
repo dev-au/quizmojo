@@ -1,7 +1,7 @@
 from aioredis import from_url
 from fastapi import FastAPI, Request
-from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from starlette.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 
 from data.exceptions import ERRORS
@@ -44,9 +44,8 @@ async def add_rate_limiter(request: Request, call_next, *args, **kwargs):
 
 
 @app.get('/errors', include_in_schema=False)
-async def project_error_types(request: Request):
+async def error_documentation(request: Request):
     return template.TemplateResponse(request, 'errors.html', {'errors': ERRORS})
-
 
 app.add_middleware(
     CORSMiddleware,

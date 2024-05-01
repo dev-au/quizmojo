@@ -34,14 +34,9 @@
             background-color: #f9f9f9;
             border-radius: 5px;
             padding: 15px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px; /* Add margin between error docs */
             float: left; /* Float the error docs to the left */
             margin-right: 5%; /* Add some space between error docs */
-            box-sizing: border-box; /* Include padding and border in width calculation */
-            clear: none; /* Clear the float */
-            display: flex; /* Use flexbox for positioning */
-            justify-content: space-between; /* Align items with space between */
         }
 
         .error-name {
@@ -58,6 +53,7 @@
         }
 
         .status-code {
+            margin-right: 10px;
             padding: 5px;
             width: 50px;
             height: 20px;
@@ -78,16 +74,26 @@
 <h1>Error Documentation</h1>
 <div class="container">
     {% for error_name, error_data in errors.items() %}
-        <div class="error-doc">
-            <div>
-                <div class="error-name">{{ error_name }}</div>
-                <div class="error-description">
-                    <p>{{ error_data['description'] }}</p>
-                </div>
-            </div>
+        <div class="error-doc" id="{{ error_name }}">
+            <h2 class="error-name">{{ error_name }}</h2>
+            <br>
+            <p class="error-description">{{ error_data['description'] }}</p>
             <div class="status-code status-code-{{ error_data['status_code'] }}">{{ error_data['status_code'] }}</div>
         </div>
     {% endfor %}
 </div>
+<script>
+    // Scroll to the error section based on the URL fragment
+    document.addEventListener('DOMContentLoaded', function () {
+        let hash = window.location.hash;
+        if (hash) {
+            let element = document.getElementById(hash.substring(1));
+            element.style.backgroundColor = '#7ce168'
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth', block: 'start'});
+            }
+        }
+    });
+</script>
 </body>
 </html>

@@ -3,6 +3,7 @@ from data.models import Quiz
 from data.schemas import QuizInfoModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
+from resources.error_docs import error_docs
 from urls import quiz_router
 
 
@@ -29,6 +30,7 @@ async def get_all_quizzes(user: CurrentUser, page: int):
     return APIResponse(response)
 
 
+@error_docs(QuizNotFoundException)
 @quiz_router.get('/{quiz_id}', response_model=APIResponse.example_model(QuizInfoModel))
 async def get_one_quiz(user: CurrentUser, quiz_id: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)

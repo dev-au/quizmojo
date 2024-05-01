@@ -8,9 +8,11 @@ from data.models import Quiz, ResultQuiz
 from data.schemas import ResultQuizModel, ResultsQuizModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
+from resources.error_docs import error_docs
 from urls import quiz_router
 
 
+@error_docs(QuizNotFoundException)
 @quiz_router.get('/results/{quiz_id}', response_model=APIResponse.example_model(ResultsQuizModel))
 async def result_quizzes(user: CurrentUser, quiz_id: int, page: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)
@@ -33,9 +35,10 @@ async def result_quizzes(user: CurrentUser, quiz_id: int, page: int):
                             started_time=result.started_time, ended_time=result.ended_time))
         rank += 1
 
-    return ResultsQuizModel(results=results_quiz)
+    return APIResponse(ResultsQuizModel(results=results_quiz))
 
 
+@error_docs(QuizNotFoundException)
 @quiz_router.get('/results-excel/{quiz_id}', response_class=Response)
 async def result_quizzes_excel(user: CurrentUser, quiz_id: int):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)

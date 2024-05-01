@@ -6,9 +6,12 @@ from data.schemas import QuizCreateModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
 from setup import current_timezone
+from resources.error_docs import error_docs
 from urls import quiz_router
 
 
+@error_docs(QuizNotFoundException, QuizNameValidationException, QuizWorkingTimeValidationException,
+            QuizStartingTimeValidationException, QuizEndingTimeValidationException)
 @quiz_router.put('', response_model=APIResponse.example_model())
 async def update_quiz_option(user: CurrentUser, quiz_id: int, quiz_data: QuizCreateModel):
     quiz = await Quiz.get_or_none(id=quiz_id, owner=user)

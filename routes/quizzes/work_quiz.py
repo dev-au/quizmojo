@@ -6,9 +6,12 @@ from data.schemas import QuizWorkModel, QuestionWorkModel, QuestionsAnswerModel
 from resources.api_response import APIResponse
 from resources.depends import CurrentUser
 from setup import current_timezone
+from resources.error_docs import error_docs
 from urls import quiz_router
 
 
+@error_docs(QuizNotFoundException, QuizIsNowWorkingException, QuizAlreadyWorkedException, QuizExpiredException,
+            QuizAccessException)
 @quiz_router.get('/work/{quiz_id}', response_model=APIResponse.example_model(QuizWorkModel))
 async def user_get_working_quiz(user: CurrentUser, quiz_id: int):
     quiz = await Quiz.get_or_none(id=quiz_id)
@@ -50,6 +53,8 @@ async def user_get_working_quiz(user: CurrentUser, quiz_id: int):
     ))
 
 
+@error_docs(QuizNotFoundException, UserNotStartedQuizException, QuizAlreadyWorkedException, QuizExpiredException,
+            QuizAccessException)
 @quiz_router.post('/work/{quiz_id}', response_model=APIResponse.example_model())
 async def user_work_quiz(user: CurrentUser, quiz_id: int, answers_data: QuestionsAnswerModel):
     quiz = await Quiz.get_or_none(id=quiz_id)
