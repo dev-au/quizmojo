@@ -40,11 +40,11 @@ class Quiz(Model):
 
 class Question(Model):
     id = fields.IntField(pk=True)
-    text = fields.TextField()
-    answer1 = fields.TextField()
-    answer2 = fields.TextField()
-    answer3 = fields.TextField()
-    answer4 = fields.TextField()
+    text = fields.CharField(max_length=255)
+    answer1 = fields.CharField(max_length=100)
+    answer2 = fields.CharField(max_length=100)
+    answer3 = fields.CharField(max_length=100)
+    answer4 = fields.CharField(max_length=100)
     correct_answer = fields.SmallIntField()
     quiz = fields.ForeignKeyField('models.Quiz')
 
